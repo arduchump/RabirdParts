@@ -17,6 +17,7 @@ public:
 
   uint8_t
   pin();
+
   uint8_t
   mode();
 

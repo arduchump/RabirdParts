@@ -28,5 +28,30 @@
 *.out
 *.app
 
-# vscode stuffs
+# Junk files
+/Release/
+.settings
+obj
+build
+.project
+.cproject
+.pydevproject
+.ino.cpp
+spec.d
+libraries
+CMakeFiles
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+*.gitattributes
+*.mo
+*.ninja
 .vscode
+*.hex
+*.orig
+.coding-styler
+*.creator
+*.creator.user
+*.config
+*.files
+*.includes

@@ -6,43 +6,29 @@
  */
 
 #include "RPSwitcher.h"
+#include "RPDigitalPin.h"
 
 RPSwitcher::RPSwitcher()
-  : mPin(0)
-  , mMode(INPUT)
-  , mOnLevel(LOW)
+  : mOnLevel(LOW)
   , mStatus(Off)
 {
 }
 
 RPSwitcher::~RPSwitcher()
 {
-  int a;
-
-  a++;
 }
 
 void
-RPSwitcher::begin(uint8_t pin, uint8_t mode, uint8_t onLevel)
+RPSwitcher::begin(RPDigitalPin *pin, uint8_t onLevel)
 {
-  mPin     = pin;
-  mMode    = mode;
+  mPin.reset(pin);
   mOnLevel = onLevel;
-
-  pinMode(mPin, mMode);
   off(); // All switcher will be default to off status
 }
 
-uint8_t
-RPSwitcher::pin()
+void
+RPSwitcher::end()
 {
-  return mPin;
-}
-
-uint8_t
-RPSwitcher::mode()
-{
-  return mMode;
 }
 
 uint8_t
@@ -66,28 +52,34 @@ RPSwitcher::off()
 RPSwitcher::Status
 RPSwitcher::status()
 {
-  if(OUTPUT == mMode)
+  if(OUTPUT == mPin->mode())
   {
     return mStatus;
   }
   else
   {
-    return ((digitalRead(pin()) == onLevel()) ? On : Off);
+    return ((mPin->read() == onLevel()) ? On : Off);
   }
+}
+
+RRawPointer<RPDigitalPin>
+RPSwitcher::pin()
+{
+  return mPin;
 }
 
 void
 RPSwitcher::setStatus(RPSwitcher::Status status)
 {
-  if(OUTPUT == mMode)
+  if(OUTPUT == mPin->mode())
   {
     if(On == status)
     {
-      digitalWrite(mPin, onLevel());
+      mPin->write(onLevel());
     }
     else
     {
-      digitalWrite(mPin, (onLevel() == HIGH) ? LOW : HIGH);
+      mPin->write((onLevel() == HIGH) ? LOW : HIGH);
     }
 
     mStatus = status;

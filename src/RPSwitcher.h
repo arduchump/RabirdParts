@@ -63,4 +63,9 @@ private:
   Status  mStatus  : 1;
 };
 
+#define RPSWITCHER_PIN_MODE(pin)         pin##Mode
+#define RPSWITCHER_PIN_ON_LEVEL(pin)     pin##OnLevel
+#define RPSWITCHER_PIN_BEGIN_PARAMS(pin) pin, RPSWITCHER_PIN_MODE(pin), \
+  RPSWITCHER_PIN_ON_LEVEL(pin)
+
 #endif /* __INCLUDED_D625BC021C1D11E7AA6EA088B4D1658C */

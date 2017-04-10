@@ -36,6 +36,8 @@ public:
 
   void
   begin(RPDigitalPin *pin, uint8_t onLevel=HIGH);
+  void
+  begin(uint8_t pin, uint8_t mode, uint8_t onLevel=HIGH);
 
   void
   end();
@@ -61,10 +63,13 @@ public:
 
 private:
   RRawPointer<RPDigitalPin> mPin;
-  uint8_t mOnLevel : 1;
-  Status  mStatus  : 1;
+  uint8_t mOnLevel      : 1;
+  Status  mStatus       : 1;
+  bool    mIsPinManaged : 1;
 };
 
-#define RP_SWITCHER_PIN_ON_LEVEL(pin) pin##OnLevel
+#define RP_SWITCHER_PIN_ON_LEVEL(pinName) pin##OnLevel
+#define RP_SWITCHER_BEGIN_ARGS(pinName) \
+  RP_PIN_BEGIN_ARGS(pinName), (RP_SWITCHER_PIN_ON_LEVEL(pinName))
 
 #endif /* __INCLUDED_D625BC021C1D11E7AA6EA088B4D1658C */

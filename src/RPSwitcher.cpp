@@ -11,6 +11,7 @@
 RPSwitcher::RPSwitcher()
   : mOnLevel(LOW)
   , mStatus(Off)
+  , mIsPinManaged(false)
 {
 }
 
@@ -21,14 +22,41 @@ RPSwitcher::~RPSwitcher()
 void
 RPSwitcher::begin(RPDigitalPin *pin, uint8_t onLevel)
 {
+  end();
+
   mPin.reset(pin);
   mOnLevel = onLevel;
   off(); // All switcher will be default to off status
 }
 
 void
+RPSwitcher::begin(uint8_t pin, uint8_t mode, uint8_t onLevel)
+{
+  end();
+
+  mPin.reset(new RPDigitalPin());
+  mPin->begin(pin, mode);
+
+  mOnLevel = onLevel;
+  off(); // All switcher will be default to off status
+
+  mIsPinManaged = true;
+}
+
+void
 RPSwitcher::end()
 {
+  mOnLevel = LOW;
+  mStatus  = Off;
+
+  if(mIsPinManaged)
+  {
+    mPin->end();
+
+    delete mPin.data();
+    mPin.reset();
+    mIsPinManaged = false;
+  }
 }
 
 uint8_t

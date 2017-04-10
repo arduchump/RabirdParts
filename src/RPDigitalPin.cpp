@@ -1,6 +1,6 @@
 #include "RPDigitalPin.h"
 
-RPDigitalPin::RPDigitalPin() : mPin(0), mMode(INPUT)
+RPDigitalPin::RPDigitalPin() : mWroteValue(LOW)
 {
 }
 
@@ -8,48 +8,25 @@ RPDigitalPin::~RPDigitalPin()
 {
 }
 
-void
-RPDigitalPin::begin(uint8_t pin, uint8_t mode)
-{
-  mPin  = pin;
-  mMode = mode;
-
-  pinMode(mPin, mMode);
-}
-
-void
-RPDigitalPin::end()
-{
-}
-
-uint8_t
-RPDigitalPin::pin()
-{
-  return mPin;
-}
-
-uint8_t
-RPDigitalPin::mode()
-{
-  return mMode;
-}
-
 uint8_t
 RPDigitalPin::read()
 {
-  if(OUTPUT == mMode)
+  if(OUTPUT == mode())
   {
-    return LOW;
+    return mWroteValue;
   }
 
-  return static_cast<uint8_t>(digitalRead(mPin));
+  return static_cast<uint8_t>(digitalRead(pin()));
 }
 
 void
 RPDigitalPin::write(uint8_t value)
 {
-  if(OUTPUT == mMode)
+  if(OUTPUT != mode())
   {
-    digitalWrite(mPin, value);
+    return;
   }
+
+  digitalWrite(pin(), value);
+  mWroteValue = value;
 }

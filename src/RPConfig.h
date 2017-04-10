@@ -4,4 +4,8 @@
 #include <inttypes.h>
 #include <Arduino.h>
 
+#if !defined(OUTPUT_PULLUP)
+#define OUTPUT_PULLUP 3
+#endif
+
 #endif // __INCLUDED_F3DD88CE1C1D11E7AA6EA088B4D1658C

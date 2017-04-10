@@ -3,6 +3,8 @@
 
 #include "RPConfig.h"
 
+#define RP_PIN_INVALID 255
+
 class RPBasicPin
 {
 public:
@@ -20,6 +22,9 @@ public:
 
   void
   end();
+
+  bool
+  isValid();
 
 private:
   uint8_t mPin; ///< Pin number of this part

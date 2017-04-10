@@ -26,6 +26,7 @@ private:
   uint8_t mMode : 2;
 };
 
-#define RP_PIN_MODE(pin) pin##Mode
+#define RP_PIN_MODE(pinName)       pin##Mode
+#define RP_PIN_BEGIN_ARGS(pinName) (pinName), RP_PIN_MODE(pinName)
 
 #endif // __INCLUDED_16B953281D9011E7AA6EA088B4D1658C

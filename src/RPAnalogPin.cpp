@@ -7,7 +7,7 @@ RPAnalogPin::RPAnalogPin() : mWroteValue(0)
 int
 RPAnalogPin::read()
 {
-  if(OUTPUT == mode())
+  if(OUTPUT == (mode() & RP_PIN_IO_MASK))
   {
     return mWroteValue;
   }
@@ -18,7 +18,7 @@ RPAnalogPin::read()
 void
 RPAnalogPin::write(int value)
 {
-  if(OUTPUT != mode())
+  if(INPUT == (mode() & RP_PIN_IO_MASK))
   {
     return;
   }

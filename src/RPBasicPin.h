@@ -3,8 +3,6 @@
 
 #include "RPConfig.h"
 
-#define RP_PIN_INVALID 255
-
 class RPBasicPin
 {
 public:
@@ -31,7 +29,6 @@ private:
   uint8_t mMode : 2;
 };
 
-#define RP_PIN_MODE(pinName)       pin##Mode
-#define RP_PIN_BEGIN_ARGS(pinName) (pinName), RP_PIN_MODE(pinName)
+#define RP_BASIC_PIN_BEGIN_ARGS(pinName) (pinName), RP_PIN_MODE(pinName)
 
 #endif // __INCLUDED_16B953281D9011E7AA6EA088B4D1658C

@@ -68,8 +68,8 @@ private:
   bool    mIsPinManaged : 1;
 };
 
-#define RP_SWITCHER_PIN_ON_LEVEL(pinName) pin##OnLevel
+#define RP_SWITCHER_PIN_ON_LEVEL(pinName) pinName##OnLevel
 #define RP_SWITCHER_BEGIN_ARGS(pinName) \
-  RP_PIN_BEGIN_ARGS(pinName), (RP_SWITCHER_PIN_ON_LEVEL(pinName))
+  RP_BASIC_PIN_BEGIN_ARGS(pinName), (RP_SWITCHER_PIN_ON_LEVEL(pinName))
 
 #endif /* __INCLUDED_D625BC021C1D11E7AA6EA088B4D1658C */

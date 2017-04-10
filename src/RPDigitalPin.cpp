@@ -11,7 +11,7 @@ RPDigitalPin::~RPDigitalPin()
 uint8_t
 RPDigitalPin::read()
 {
-  if(OUTPUT == mode())
+  if(OUTPUT == (mode() & RP_PIN_IO_MASK))
   {
     return mWroteValue;
   }
@@ -22,7 +22,7 @@ RPDigitalPin::read()
 void
 RPDigitalPin::write(uint8_t value)
 {
-  if(OUTPUT != mode())
+  if(INPUT == (mode() & RP_PIN_IO_MASK))
   {
     return;
   }

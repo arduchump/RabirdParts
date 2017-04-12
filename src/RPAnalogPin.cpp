@@ -23,6 +23,11 @@ RPAnalogPin::write(int value)
     return;
   }
 
+  if(value == mWroteValue)
+  {
+    return;
+  }
+
   analogWrite(pin(), value);
   mWroteValue = value;
 }

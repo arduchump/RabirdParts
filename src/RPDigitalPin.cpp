@@ -27,6 +27,11 @@ RPDigitalPin::write(uint8_t value)
     return;
   }
 
+  if(value == mWroteValue)
+  {
+    return;
+  }
+
   digitalWrite(pin(), value);
   mWroteValue = value;
 }
